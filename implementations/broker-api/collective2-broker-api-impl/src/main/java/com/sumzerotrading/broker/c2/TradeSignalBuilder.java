@@ -17,8 +17,6 @@ import com.sumzerotrading.j4c2.signal.SubmitSignalRequest;
  */
 public class TradeSignalBuilder {
 
-
-
     public SubmitSignalRequest buildSignalRequest( String systemId, TradeOrder order ) {
         Ticker ticker = order.getTicker();
         String symbol;
@@ -45,12 +43,10 @@ public class TradeSignalBuilder {
         } else if( order.getType() == TradeOrder.Type.LIMIT ) { 
             signalInfo.setLimitPrice(order.getLimitPrice() );
         }
-        
-        SubmitSignalRequest request = new SubmitSignalRequest(systemId, signalInfo);
-        return request;
+
+        return new SubmitSignalRequest(systemId, signalInfo);
     }
-    
-    
+
     protected SignalInfo.Duration getDuration( TradeOrder.Duration tradeDuration ) {
         if( tradeDuration == TradeOrder.Duration.DAY ) {
             return SignalInfo.Duration.DAY;

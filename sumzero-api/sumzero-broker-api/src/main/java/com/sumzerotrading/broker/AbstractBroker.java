@@ -10,10 +10,10 @@ import com.sumzerotrading.broker.order.OrderEventListener;
 import com.sumzerotrading.time.TimeUpdatedListener;
 import java.util.Set;
 import java.util.TreeSet;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- *
  * @author RobTerpilowski
  */
 public abstract class AbstractBroker implements IBroker{
@@ -21,9 +21,7 @@ public abstract class AbstractBroker implements IBroker{
     protected Set<OrderEventListener> orderEventListeners = new TreeSet<>();
     protected Set<BrokerErrorListener> brokerErrorListeners = new TreeSet<>();
     protected Set<TimeUpdatedListener> timeUpdatedListeners = new TreeSet<>();
-    protected static Logger logger = Logger.getLogger(AbstractBroker.class);
-    
-    
+    protected static Logger logger = LoggerFactory.getLogger(AbstractBroker.class);
 
     @Override
     public void addOrderEventListener(OrderEventListener listener) {
@@ -94,6 +92,5 @@ public abstract class AbstractBroker implements IBroker{
     }
     
     protected void fireTimeUpdate() {
-        
     }
 }

@@ -66,7 +66,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.collections4.map.PassiveExpiringMap;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Supported Order types are: Market, Stop and Limit Supported order parameters
@@ -79,7 +80,7 @@ public class InteractiveBrokersBroker extends BaseIBConnectionDelegate implement
 
     protected static int contractRequestId = 1;
     protected static int executionRequestId = 1;
-    protected static Logger logger = Logger.getLogger(InteractiveBrokersBroker.class);
+    protected static Logger logger = LoggerFactory.getLogger(InteractiveBrokersBroker.class);
     protected EClientSocket ibConnection;
     protected IBSocket ibSocket;
     protected IBConnectionInterface callbackInterface;
@@ -185,8 +186,7 @@ public class InteractiveBrokersBroker extends BaseIBConnectionDelegate implement
     @Override
     public void openOrder(int orderId, Contract contract, Order order, OrderState orderState) {
         logger.debug("OpenOrder: " + orderId + " Contract: " + contract + " Order: " + order + " OrderState: " + orderState);
-        
-    }
+            }
 
     public void timeReceived(ZonedDateTime time) {
         try {
@@ -274,7 +274,7 @@ public class InteractiveBrokersBroker extends BaseIBConnectionDelegate implement
         try {
              brokerErrorQueue.put(error);
         } catch (Exception ex) {
-            logger.error(ex, ex);
+            logger.error(ex.getLocalizedMessage(), ex);
         }
     }
 
@@ -420,8 +420,6 @@ public class InteractiveBrokersBroker extends BaseIBConnectionDelegate implement
         getPositionsCountdownLatch.countDown();
         logger.debug( "Position END()");
     }
-    
-    
 
     protected void saveOrderMaps() throws Exception {
         tradeFileSemaphore.acquire();

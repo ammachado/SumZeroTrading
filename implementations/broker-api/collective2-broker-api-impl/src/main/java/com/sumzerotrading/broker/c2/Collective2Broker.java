@@ -34,24 +34,22 @@ import com.sumzerotrading.j4c2.signal.SubmitSignalResponse;
 import com.sumzerotrading.time.TimeUpdatedListener;
 import java.time.ZonedDateTime;
 import java.util.List;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Rob Terpilowski
  */
 public class Collective2Broker implements IBroker {
-    
-    
+
     protected Collective2Client c2Client;
     protected TradeSignalBuilder signalBuilder;
     protected String systemid;
     protected String apiKey;
-    protected Logger logger = Logger.getLogger(Collective2Broker.class);
-    
-    
+    protected Logger logger = LoggerFactory.getLogger(Collective2Broker.class);
+
     //For unit tests
     protected Collective2Broker() {
-        
     }
     
     public Collective2Broker(String apiKey, String systemid ) {
@@ -89,8 +87,6 @@ public class Collective2Broker implements IBroker {
             child.setOrderId(submitTradeSignalResponse.getSignalid());
         }
     }
-    
-    
 
     /**
      * Always returns an empty string.  Collective2 automatically assigns an order id when 
@@ -126,7 +122,6 @@ public class Collective2Broker implements IBroker {
     public void addBrokerErrorListener(BrokerErrorListener listener) {
     }
 
-    
     /**
      * Currently does nothing
      * @param listener 
@@ -158,7 +153,6 @@ public class Collective2Broker implements IBroker {
         //does nothing
     }
 
-    
     /**
      * Does nothing
      */
@@ -183,7 +177,6 @@ public class Collective2Broker implements IBroker {
     @Override
     public void aquireLock() {
     }
-
     
     /**
      * Does nothing
@@ -231,6 +224,4 @@ public class Collective2Broker implements IBroker {
     public List<Position> getAllPositions() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-
 }

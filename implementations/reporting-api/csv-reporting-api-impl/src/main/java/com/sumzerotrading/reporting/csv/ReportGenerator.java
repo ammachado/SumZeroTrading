@@ -22,7 +22,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -30,7 +31,7 @@ import org.apache.log4j.Logger;
  */
 public class ReportGenerator implements IReportGenerator {
 
-    protected Logger logger = Logger.getLogger(ReportGenerator.class);
+    protected Logger logger = LoggerFactory.getLogger(ReportGenerator.class);
     protected Map<String, IRoundTrip> roundTripMap = new HashMap<>();
     protected String outputFile;
     protected String outputDir;
@@ -96,7 +97,6 @@ public class ReportGenerator implements IReportGenerator {
                 throw new IllegalStateException(ex);
             }
             input.close();
-
         }
     }
 
@@ -163,5 +163,4 @@ public class ReportGenerator implements IReportGenerator {
     protected TradeReferenceLine getTradeReferenceLine( String line ) {
         return TradeReferenceLine.parseLine(line);
     }
-
 }

@@ -33,14 +33,11 @@ public class C2Util {
     public static final String ROOT_SYMBOL_MINI_DOW = "@YM";
     public static final String ROOT_SYMBOL_SP500 = "@ES";
     public static final String ROOT_SYMBOL_CORN = "@C";
-
     
     public static String getFuturesSymbol(FuturesTicker ticker) {
         String c2Symbol = C2Util.getC2RootSymbol(ticker.getSymbol());
-        String symbol = FuturesUtil.getFullFuturesSymbolWithOneDigitYear(c2Symbol, ticker.getExpiryMonth(), ticker.getExpiryYear());
-        return symbol;
+        return FuturesUtil.getFullFuturesSymbolWithOneDigitYear(c2Symbol, ticker.getExpiryMonth(), ticker.getExpiryYear());
     }
-    
     
     public static Action getTradeAction( TradeOrder order ) {
         if( order.getTradeDirection() == TradeDirection.BUY ) {
@@ -81,7 +78,6 @@ public class C2Util {
         }
     }
     
-    
     public static String getC2RootSymbol(String symbol) {
         switch(symbol) {
             case "NQ":
@@ -101,13 +97,9 @@ public class C2Util {
                 throw new SumZeroException("Unsupported C2 symbol: " + symbol );
         }
     }
-    
-    
+
     public static String getTime( ZonedDateTime zonedTime ) {
         ZonedDateTime newYorkTime = zonedTime.withZoneSameInstant(ZoneId.of("America/New_York"));
         return formatter.format(newYorkTime);
     }
-    
-    
-    
 }
