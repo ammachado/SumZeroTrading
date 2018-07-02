@@ -1,24 +1,22 @@
-/**
+/*
  * MIT License
-
-Copyright (c) 2015  Rob Terpilowski
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
-and associated documentation files (the "Software"), to deal in the Software without restriction, 
-including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, 
-subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
-BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
-WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
-OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * Copyright (c) 2015 Rob Terpilowski
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ * BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
+ * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
-
 package com.sumzerotrading.broker.order;
 
 import com.sumzerotrading.data.Ticker;
@@ -27,16 +25,14 @@ import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
 /**
- *
  * @author Rob Terpilowski
  */
-public class OrderStatus implements Serializable  {
-    
+public class OrderStatus implements Serializable {
+
     public static long serialVersionUID = 1L;
-    
-    public enum Status { NEW, PARTIAL_FILL, PENDING_CANCEL, REJECTED, FILLED, CANCELED, REPLACED, UNKNOWN };
-    
-    
+
+    public enum Status {NEW, PARTIAL_FILL, PENDING_CANCEL, REJECTED, FILLED, CANCELED, REPLACED, UNKNOWN}
+
     protected Status status;
     protected String orderId;
     protected String oldOrderid;
@@ -46,17 +42,14 @@ public class OrderStatus implements Serializable  {
     protected Ticker ticker;
     protected ZonedDateTime timestamp;
 
-    
-    
-    public OrderStatus( Status status, String oldOrderId, String orderId, Ticker ticker, ZonedDateTime timestamp) {
+    public OrderStatus(Status status, String oldOrderId, String orderId, Ticker ticker, ZonedDateTime timestamp) {
         this.status = status;
         this.oldOrderid = oldOrderId;
         this.orderId = orderId;
         this.ticker = ticker;
         this.timestamp = timestamp;
     }
-    
-    
+
     public OrderStatus(Status status, String orderId, int filled, int remaining, BigDecimal fillPrice, Ticker ticker, ZonedDateTime timestamp) {
         this.status = status;
         this.orderId = orderId;
@@ -66,8 +59,9 @@ public class OrderStatus implements Serializable  {
         this.ticker = ticker;
         this.timestamp = timestamp;
     }
-    
-    public OrderStatus(Status status, String originalOrderId, String orderId, int filled, int remaining, BigDecimal fillPrice, Ticker ticker, ZonedDateTime timestamp) {
+
+    public OrderStatus(Status status, String originalOrderId, String orderId, int filled, int remaining, BigDecimal fillPrice, Ticker ticker,
+        ZonedDateTime timestamp) {
         this.status = status;
         this.orderId = orderId;
         this.oldOrderid = originalOrderId;
@@ -78,7 +72,6 @@ public class OrderStatus implements Serializable  {
         this.timestamp = timestamp;
     }
 
-    
     public int getFilled() {
         return filled;
     }
@@ -110,8 +103,6 @@ public class OrderStatus implements Serializable  {
     public String getOldOrderid() {
         return oldOrderid;
     }
-    
-    
 
     @Override
     public int hashCode() {
@@ -165,10 +156,7 @@ public class OrderStatus implements Serializable  {
 
     @Override
     public String toString() {
-        return "OrderStatus{" + "status=" + status + ", orderId=" + orderId + ", oldOrderid=" + oldOrderid + ", filled=" + filled + ", remaining=" + remaining + ", fillPrice=" + fillPrice + ", ticker=" + ticker + ", timestamp=" + timestamp + '}';
+        return "OrderStatus{" + "status=" + status + ", orderId=" + orderId + ", oldOrderid=" + oldOrderid + ", filled=" + filled + ", remaining="
+            + remaining + ", fillPrice=" + fillPrice + ", ticker=" + ticker + ", timestamp=" + timestamp + '}';
     }
-    
-    
-
-    
 }

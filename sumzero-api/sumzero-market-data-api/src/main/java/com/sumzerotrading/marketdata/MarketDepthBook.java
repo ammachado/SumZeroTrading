@@ -1,23 +1,22 @@
-/**
+/*
  * MIT License
-
-Copyright (c) 2015  Rob Terpilowski
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
-and associated documentation files (the "Software"), to deal in the Software without restriction, 
-including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, 
-subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
-BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
-WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
-OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- 
-*/
-
+ *
+ * Copyright (c) 2015 Rob Terpilowski
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ * BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
+ * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 package com.sumzerotrading.marketdata;
 
 import java.math.BigDecimal;
@@ -27,30 +26,27 @@ import java.util.Collections;
 
 public class MarketDepthBook implements IMarketDepthBook {
 
-    public static enum Side { BID, ASK };
+    public enum Side {BID, ASK}
+
     protected static IMarketDepthBook testBook;
     protected ArrayList<MarketDepthLevel> levels = new ArrayList<MarketDepthLevel>();
     protected Side side;
 
-    
-    
     public static IMarketDepthBook newInstance() {
-        if( testBook != null ) {
+        if (testBook != null) {
             return testBook;
         } else {
             return new MarketDepthBook();
         }
     }
-    
-    
-    public static void setTestInstance( IMarketDepthBook book ) {
+
+    public static void setTestInstance(IMarketDepthBook book) {
         testBook = book;
     }
-    
+
     protected MarketDepthBook() {
-        
     }
-    
+
     /**
      * @return the side
      */
@@ -59,7 +55,6 @@ public class MarketDepthBook implements IMarketDepthBook {
         return side;
     }
 
-    
     /**
      * @param side the side to set
      */
@@ -68,19 +63,16 @@ public class MarketDepthBook implements IMarketDepthBook {
         this.side = side;
     }
 
-    
     @Override
     public void clearLevels() {
         levels.clear();
     }
 
-    
     @Override
     public MarketDepthLevel[] getLevels() {
         return levels.toArray(new MarketDepthLevel[]{});
     }
 
-    
     @Override
     public int getLevelCount() {
         return levels.size();
@@ -95,34 +87,32 @@ public class MarketDepthBook implements IMarketDepthBook {
     public void addLevel(MarketDepthLevel level) {
         levels.add(level);
     }
-    
+
     @Override
-    public void insertLevel(int index, MarketDepthLevel level ) {
-        if( levels.size() >= index ) {
+    public void insertLevel(int index, MarketDepthLevel level) {
+        if (levels.size() >= index) {
             levels.add(index, level);
-        } 
-    }
-    
-    @Override
-    public void updateLevel(int index, MarketDepthLevel level ) {
-        if( levels.size() > index ) {
-            levels.add(index, level);
-            levels.remove(index+1);
         }
     }
-    
+
     @Override
-    public void deleteLevel( int index ) {
-        if( levels.size() > index ) {
+    public void updateLevel(int index, MarketDepthLevel level) {
+        if (levels.size() > index) {
+            levels.add(index, level);
+            levels.remove(index + 1);
+        }
+    }
+
+    @Override
+    public void deleteLevel(int index) {
+        if (levels.size() > index) {
             levels.remove(index);
         }
     }
 
     @Override
     public void setLevels(MarketDepthLevel[] levelArray) {
-        for (MarketDepthLevel level : levelArray) {
-            levels.add(level);
-        }
+        Collections.addAll(levels, levelArray);
     }
 
     @Override

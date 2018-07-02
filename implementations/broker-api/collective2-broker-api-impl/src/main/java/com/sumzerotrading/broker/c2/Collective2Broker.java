@@ -1,7 +1,7 @@
-/**
+/*
  * MIT License
  *
- * Copyright (c) 2015  Rob Terpilowski
+ * Copyright (c) 2015 Rob Terpilowski
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  * and associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -18,7 +18,6 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 package com.sumzerotrading.broker.c2;
-
 
 import com.sumzerotrading.broker.BrokerErrorListener;
 import com.sumzerotrading.broker.IBroker;
@@ -51,8 +50,8 @@ public class Collective2Broker implements IBroker {
     //For unit tests
     protected Collective2Broker() {
     }
-    
-    public Collective2Broker(String apiKey, String systemid ) {
+
+    public Collective2Broker(String apiKey, String systemid) {
         this.apiKey = apiKey;
         this.systemid = systemid;
         signalBuilder = new TradeSignalBuilder();
@@ -61,10 +60,10 @@ public class Collective2Broker implements IBroker {
 
     @Override
     public void cancelOrder(String id) {
-        logger.info("Canceling signal: " + id );
+        logger.info("Canceling signal: " + id);
         CancelSignalRequest request = new CancelSignalRequest(systemid, id);
         c2Client.submitCancelSignal(request);
-        
+
     }
 
     @Override
@@ -76,21 +75,21 @@ public class Collective2Broker implements IBroker {
     public void placeOrder(TradeOrder order) {
         logger.info("Submitting order to C2 Broker: " + order);
         SubmitSignalResponse submitTradeSignalResponse = c2Client.submitTradeSignal(signalBuilder.buildSignalRequest(systemid, order));
-        logger.info("C2 parent response: " + submitTradeSignalResponse.toString() );
+        logger.info("C2 parent response: " + submitTradeSignalResponse.toString());
         order.setOrderId(submitTradeSignalResponse.getSignalid());
-        for( TradeOrder child : order.getChildOrders() ) {
+        for (TradeOrder child : order.getChildOrders()) {
             logger.info("Submitting child order");
             SubmitSignalRequest buildSignalRequest = signalBuilder.buildSignalRequest(systemid, child);
-            logger.info("C2 Child Signal: " + buildSignalRequest );
+            logger.info("C2 Child Signal: " + buildSignalRequest);
             submitTradeSignalResponse = c2Client.submitTradeSignal(buildSignalRequest);
-            logger.info("C2 child response: " + submitTradeSignalResponse.toString() );
+            logger.info("C2 child response: " + submitTradeSignalResponse.toString());
             child.setOrderId(submitTradeSignalResponse.getSignalid());
         }
     }
 
     /**
-     * Always returns an empty string.  Collective2 automatically assigns an order id when 
-     * the order is submitted
+     * Always returns an empty string.  Collective2 automatically assigns an order id when the order is submitted
+     *
      * @return an empty string.
      */
     @Override
@@ -100,7 +99,6 @@ public class Collective2Broker implements IBroker {
 
     /**
      * Currently does nothing
-     * @param listener 
      */
     @Override
     public void addOrderEventListener(OrderEventListener listener) {
@@ -108,7 +106,6 @@ public class Collective2Broker implements IBroker {
 
     /**
      * Currently does nothing
-     * @param listener 
      */
     @Override
     public void removeOrderEventListener(OrderEventListener listener) {
@@ -116,7 +113,6 @@ public class Collective2Broker implements IBroker {
 
     /**
      * Currently does nothing
-     * @param listener 
      */
     @Override
     public void addBrokerErrorListener(BrokerErrorListener listener) {
@@ -124,7 +120,6 @@ public class Collective2Broker implements IBroker {
 
     /**
      * Currently does nothing
-     * @param listener 
      */
     @Override
     public void removeBrokerErrorListener(BrokerErrorListener listener) {
@@ -163,6 +158,7 @@ public class Collective2Broker implements IBroker {
 
     /**
      * Always returns true
+     *
      * @return true
      */
     @Override
@@ -170,14 +166,14 @@ public class Collective2Broker implements IBroker {
         return true;
     }
 
-    
+
     /**
      * Does nothing
      */
     @Override
     public void aquireLock() {
     }
-    
+
     /**
      * Does nothing
      */

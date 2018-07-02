@@ -21,7 +21,6 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- *
  * @author RobTerpilowski
  */
 public class C2Util {
@@ -33,53 +32,53 @@ public class C2Util {
     public static final String ROOT_SYMBOL_MINI_DOW = "@YM";
     public static final String ROOT_SYMBOL_SP500 = "@ES";
     public static final String ROOT_SYMBOL_CORN = "@C";
-    
+
     public static String getFuturesSymbol(FuturesTicker ticker) {
         String c2Symbol = C2Util.getC2RootSymbol(ticker.getSymbol());
         return FuturesUtil.getFullFuturesSymbolWithOneDigitYear(c2Symbol, ticker.getExpiryMonth(), ticker.getExpiryYear());
     }
-    
-    public static Action getTradeAction( TradeOrder order ) {
-        if( order.getTradeDirection() == TradeDirection.BUY ) {
+
+    public static Action getTradeAction(TradeOrder order) {
+        if (order.getTradeDirection() == TradeDirection.BUY) {
             return Action.BTO;
-        } else if( order.getTradeDirection() == TradeDirection.SELL ) {
+        } else if (order.getTradeDirection() == TradeDirection.SELL) {
             return Action.STC;
-        } else if( order.getTradeDirection() == TradeDirection.BUY_TO_COVER ) {
+        } else if (order.getTradeDirection() == TradeDirection.BUY_TO_COVER) {
             return Action.BTC;
-        } else if( order.getTradeDirection() == TradeDirection.SELL_SHORT ) {
+        } else if (order.getTradeDirection() == TradeDirection.SELL_SHORT) {
             return Action.STO;
         } else {
-            throw new SumZeroException("Unknown trade direction: " + order.getTradeDirection() );
+            throw new SumZeroException("Unknown trade direction: " + order.getTradeDirection());
         }
     }
-    
-    public static SymbolType getSymbolType( TradeOrder order ) {
+
+    public static SymbolType getSymbolType(TradeOrder order) {
         Ticker ticker = order.getTicker();
-        if( ticker instanceof StockTicker ) {
+        if (ticker instanceof StockTicker) {
             return SymbolType.stock;
-        } else if( ticker instanceof FuturesTicker ) {
+        } else if (ticker instanceof FuturesTicker) {
             return SymbolType.future;
-        } else if( ticker instanceof CurrencyTicker ) {
+        } else if (ticker instanceof CurrencyTicker) {
             return SymbolType.forex;
         } else {
             throw new SumZeroException("Unsupported symbol type: " + ticker.getClass());
         }
     }
-    
-    public static OrderType getOrderType( TradeOrder order ) {
-        if( order.getType() == TradeOrder.Type.MARKET || order.getType() == TradeOrder.Type.MARKET_ON_OPEN ) {
+
+    public static OrderType getOrderType(TradeOrder order) {
+        if (order.getType() == TradeOrder.Type.MARKET || order.getType() == TradeOrder.Type.MARKET_ON_OPEN) {
             return OrderType.MARKET;
-        } else if( order.getType() == TradeOrder.Type.LIMIT ) {
+        } else if (order.getType() == TradeOrder.Type.LIMIT) {
             return OrderType.LIMIT;
-        } else if( order.getType() == TradeOrder.Type.STOP ) {
+        } else if (order.getType() == TradeOrder.Type.STOP) {
             return OrderType.STOP;
         } else {
             throw new SumZeroException("Unsupported order type: " + order.getType());
         }
     }
-    
+
     public static String getC2RootSymbol(String symbol) {
-        switch(symbol) {
+        switch (symbol) {
             case "NQ":
                 return ROOT_SYMBOL_NASDAQ_100;
             case "ES":
@@ -94,11 +93,11 @@ public class C2Util {
             case "ZC":
                 return ROOT_SYMBOL_CORN;
             default:
-                throw new SumZeroException("Unsupported C2 symbol: " + symbol );
+                throw new SumZeroException("Unsupported C2 symbol: " + symbol);
         }
     }
 
-    public static String getTime( ZonedDateTime zonedTime ) {
+    public static String getTime(ZonedDateTime zonedTime) {
         ZonedDateTime newYorkTime = zonedTime.withZoneSameInstant(ZoneId.of("America/New_York"));
         return formatter.format(newYorkTime);
     }

@@ -13,9 +13,9 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMA
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.sumzerotrading</groupId>
@@ -31,28 +31,29 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         <module>SumZeroParent</module>
         <module>sumzero-api</module>
     </modules>
+
     <distributionManagement>
         <repository>
             <id>bintray-rterp-maven</id>
             <name>rterp-maven</name>
             <url>https://api.bintray.com/maven/rterp/maven/SumZeroTrading/;publish=1</url>
         </repository>
-    </distributionManagement>    
+    </distributionManagement>
+
     <scm>
         <connection>scm:git:git@github.com:rterp/SumZeroTrading.git</connection>
         <developerConnection>scm:git:git@github.com:rterp/SumZeroTrading.git</developerConnection>
         <url>git@github.com:rterp/SumZeroTrading.git</url>
-        <!--<tag>2.0.2-23</tag>-->
-        <!--<tag>GMapsFX-2.12.0</tag>-->
         <tag>HEAD</tag>
-    </scm>    
+    </scm>
+
     <build>
-        <plugins>           
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>2.5.3</version>
-                </plugin>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+            </plugin>
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>2.4</version>
@@ -63,7 +64,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                         <goals>
                             <!-- produce source artifact for main project sources -->
                             <goal>jar-no-fork</goal>
-              
                             <goal>test-jar-no-fork</goal>
                         </goals>
                     </execution>
@@ -76,9 +76,8 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 <configuration>
                     <failOnError>false</failOnError>
                     <use>false</use>
-                    <aggregate>true</aggregate> 
+                    <aggregate>true</aggregate>
                 </configuration>
-
                 <executions>
                     <execution>
                         <id>aggregate</id>
@@ -91,10 +90,9 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     </execution>
                 </executions>
             </plugin>
-                      
         </plugins>
     </build>
-    
+
     <profiles>
         <profile>
             <id>release-build</id>
@@ -113,10 +111,16 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                                 </goals>
                             </execution>
                         </executions>
-                    </plugin>  
+                    </plugin>
                 </plugins>
             </build>
         </profile>
     </profiles>
-  
+
+    <repositories>
+        <repository>
+            <id>spring-plugins</id>
+            <url>http://repo.spring.io/plugins-release/</url>
+        </repository>
+    </repositories>
 </project>

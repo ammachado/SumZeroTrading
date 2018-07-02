@@ -1,7 +1,7 @@
-/**
+/*
  * MIT License
  *
- * Copyright (c) 2015  Rob Terpilowski
+ * Copyright (c) 2015 Rob Terpilowski
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  * and associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -10,12 +10,12 @@
  * subject to the following conditions:
  *
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
  * BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
  */
 package com.sumzerotrading.marketdata;
 
@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+
 import static javax.management.Query.value;
 
 /**
@@ -36,19 +37,18 @@ import static javax.management.Query.value;
  */
 public class Level1Quote extends AbstractQuote implements ILevel1Quote {
 
-    protected Map<QuoteType, BigDecimal> quoteMap = new HashMap<>();
+    protected final Map<QuoteType, BigDecimal> quoteMap = new HashMap<>();
 
     /**
      * Builds a new Level1Quote
      *
      * @param ticker The ticker this quote is for
-     * @param type The type of quote (bid/ask/last/open/etc)
-     * @param timeStamp The time of the quote
-     * @param value The price (or volume) of this quote
+     * @param timestamp The time of the quote
+     * @param quoteValues The price (or volume) of this quote
      */
     public Level1Quote(Ticker ticker, ZonedDateTime timestamp, Map<QuoteType, BigDecimal> quoteValues) {
         super(ticker, timestamp);
-        this.quoteMap = quoteValues;
+        this.quoteMap.putAll(quoteValues);
     }
 
     @Override
@@ -63,12 +63,11 @@ public class Level1Quote extends AbstractQuote implements ILevel1Quote {
 
     @Override
     public BigDecimal getValue(QuoteType type) {
-        if( containsType(type) ) {
+        if (containsType(type)) {
             return quoteMap.get(type);
         } else {
-            throw new SumZeroException("Quote does not contain type: " + type );
+            throw new SumZeroException("Quote does not contain type: " + type);
         }
-    
     }
 
     @Override
@@ -100,6 +99,4 @@ public class Level1Quote extends AbstractQuote implements ILevel1Quote {
     public String toString() {
         return "Level1Quote{" + "quoteMap=" + quoteMap + '}';
     }
-
-    
 }

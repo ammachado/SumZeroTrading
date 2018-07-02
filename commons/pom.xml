@@ -19,31 +19,30 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.sumzerotrading</groupId>
+        <artifactId>SumZeroParent</artifactId>
+        <version>0.1.7-SNAPSHOT</version>
+        <relativePath>../SumZeroParent</relativePath>
+    </parent>
 
-  <parent>
-    <groupId>com.sumzerotrading</groupId>
-    <artifactId>SumZeroParent</artifactId>
-    <version>0.1.7-SNAPSHOT</version>
-    <relativePath>../SumZeroParent</relativePath>
-  </parent>
+    <artifactId>sumzero-commons</artifactId>
+    <name>sumzero-commons</name>
+    <description>Classes that are used by all projects</description>
+    <packaging>pom</packaging>
 
-  <groupId>com.sumzerotrading</groupId>
-  <artifactId>sumzero-commons</artifactId>
-  <name>sumzero-commons</name>
-  <description>Classes that are used by all projects</description>
-  <packaging>pom</packaging>
+    <modules>
+        <module>sumzero-commons-api</module>
+        <module>interactive-brokers-api</module>
+        <module>sumzero-ib-common-api</module>
+        <module>interactive-brokers-client</module>
+        <module>interactive-brokers-integration-tests</module>
+        <module>bitmex-common-api</module>
+    </modules>
 
-  <modules>
-    <module>sumzero-commons-api</module>
-    <module>interactive-brokers-api</module>
-    <module>sumzero-ib-common-api</module>
-    <module>interactive-brokers-client</module>
-    <module>interactive-brokers-integration-tests</module>
-    <module>bitmex-common-api</module>
-  </modules>
-  
 </project>

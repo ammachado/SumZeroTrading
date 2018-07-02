@@ -140,7 +140,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         </dependencies>
     </dependencyManagement>
 
-
     <build>
         <plugins>
             <plugin>
@@ -155,25 +154,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 </configuration>
                 <version>2.20</version>
             </plugin>
-            <!--
-            <plugin>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.4</version>
-                <executions>
-                    <execution>
-                        <id>bundle-sources</id>
-                        <phase>package</phase>
-                        <goals>
-                             produce source artifact for main project sources
-                            <goal>jar-no-fork</goal>
-              
-                             produce source artifact for project test sources
-                            <goal>test-jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -181,7 +161,6 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-
                 </configuration>
             </plugin>
 
@@ -206,26 +185,9 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                     </execution>
                 </executions>
             </plugin>
-            <!--
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.6</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>    
-            -->
         </plugins>
-
-
     </build>
+
     <dependencies>
         <dependency>
             <groupId>org.mockito</groupId>
@@ -240,4 +202,11 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>spring-plugins</id>
+            <url>http://repo.spring.io/plugins-release/</url>
+        </repository>
+    </repositories>
 </project>
